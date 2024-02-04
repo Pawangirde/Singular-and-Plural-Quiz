@@ -59,22 +59,16 @@
             font-weight: bold;
         }
 
-        /* Add this to your styles.css or include it in the head of your HTML file */
-
         .warning {
             color: #ff0000;
-            /* Red color for warnings */
             font-size: 14px;
             margin-top: 5px;
-            /* Adjust as needed */
         }
 
         .correct-answer {
             color: #008000;
-            /* Green color for correct answers */
             font-size: 14px;
             margin-top: 5px;
-            /* Adjust as needed */
         }
     </style>
 </head>
@@ -83,7 +77,6 @@
     <div class="quiz-container">
         <h1>Singular and Plural Quiz</h1>
 
-
         <form id="quizForm">
             <div class="question" id="q1">
                 <p>1. Either Rita or Rama _______ playing cricket.</p>
@@ -91,109 +84,99 @@
                 <label><input type="radio" name="q1" value="are"> are</label>
             </div>
             <div class="question" id="q2">
-                <p>2. Neither my sister nor my brothers _______ coming to the party.
-                </p>
+                <p>2. Neither my sister nor my brothers _______ coming to the party.</p>
                 <label><input type="radio" name="q2" value="had"> had</label>
                 <label><input type="radio" name="q2" value="has"> has</label>
             </div>
             <div class="question" id="q3">
-                <p>3.She ______ her homework every day.
-                </p>
+                <p>3. She ______ her homework every day.</p>
                 <label><input type="radio" name="q3" value="do"> do</label>
                 <label><input type="radio" name="q3" value="does"> does</label>
             </div>
             <div class="question" id="q4">
-                <p>4. They _____ a picnic in the park.
-                </p> <label><input type="radio" name="q4" value="have"> have</label>
+                <p>4. They _____ a picnic in the park.</p>
+                <label><input type="radio" name="q4" value="have"> have</label>
                 <label><input type="radio" name="q4" value="has"> has</label>
             </div>
             <div class="question" id="q5">
-                <p> 2. Identify the correct sentence:</p>
-                <label><input type="radio" name="q5" value=" a) The cat do not like water."> a) The cat do not like
+                <p>5. Identify the correct sentence:</p>
+                <label><input type="radio" name="q5" value="a) The cat do not like water."> a) The cat do not like
                     water.</label>
                 <label><input type="radio" name="q5" value="b) The cats does not like water."> b) The cats does not like
-                    water. </label>
+                    water.</label>
                 <label><input type="radio" name="q5" value="c) The cat does not like water."> c) The cat does not like
-                    water.
-                </label>
-                <label><input type="radio" name="q5" value=" d) The cats do not like waters. "> d) The cats do not like
-                    waters. </label>
-            </div>
-            <div class="question">
-                <p>1. Singular Present Tense:</p>
-                <label><input type="radio" name="q7" value="do"> do</label>
-                <label><input type="radio" name="q7" value="does"> does</label>
-            </div>
-            <div class="question">
-                <p>1. Singular Present Tense:</p>
-                <label><input type="radio" name="q8" value="do"> do</label>
-                <label><input type="radio" name="q8" value="does"> does</label>
-            </div>
-            <div class="question">
-                <p>1. Singular Present Tense:</p>
-                <label><input type="radio" name="q9" value="do"> do</label>
-                <label><input type="radio" name="q9" value="does"> does</label>
-            </div>
-            <div class="question">
-                <p>1. Singular Present Tense:</p>
-                <label><input type="radio" name="q10" value="do"> do</label>
-                <label><input type="radio" name="q10" value="does"> does</label>
+                    water.</label>
+                <label><input type="radio" name="q5" value="d) The cats do not like waters."> d) The cats do not like
+                    waters.</label>
             </div>
 
-
-            <!-- <div class="question">
-                <p>5. Select the correct sentence:</p>
-                <label><input type="radio" name="q5" value="I do not have time yesterday."> I do not have time
-                    yesterday.</label>
-                <label><input type="radio" name="q5" value="I did not have time yesterday."> I did not have time
-                    yesterday.</label>
-            </div> -->
-
-            <button  type="button" onclick="submitQuiz()">Submit</button>
+            <button type="button" onclick="submitQuiz()">Submit</button>
         </form>
+
         <div id="result"></div>
     </div>
+
     <script>
-        function submitQuiz() {
-            const form = document.getElementById('quizForm');
-            const resultDiv = document.getElementById('result');
+ function submitQuiz() {
+    const form = document.getElementById('quizForm');
+    const resultDiv = document.getElementById('result');
 
-            // Define correct answers
-            const correctAnswers = {
-                q1: 'is',
-                q2: 'has',
-                q3: 'does',
-                q4: 'have',
-                q5: 'c) The cat does not like water.'
-            };
+    // Define correct answers
+    const correctAnswers = {
+        q1: 'is',
+        q2: 'has',
+        q3: 'does',
+        q4: 'have',
+        q5: 'c) The cat does not like water.'
+    };
 
-            // Count correct answers
-            let score = 0;
+    // Count correct answers
+    let score = 0;
 
-            // Check each question
-            for (const question in correctAnswers) {
-                const selectedAnswer = form.elements[question].value;
-                const questionElement = document.getElementById(question); // Define questionElement here
+    // Check each question
+    for (const question in correctAnswers) {
+        const selectedAnswer = form.querySelector(`input[name="${question}"]:checked`);
+        const questionElement = document.getElementById(question);
 
-                if (selectedAnswer === correctAnswers[question]) {
-                    const correctAnswerDiv = document.createElement('div');
-                    correctAnswerDiv.className = 'correct-answer';
-                    correctAnswerDiv.innerHTML = `Correct Answer: ${correctAnswers[question]}`;
-
-                    questionElement.appendChild(correctAnswerDiv);
-                    score++;
-                } else {
-                    const correctAnswerDiv = document.createElement('div');
-                    // correctAnswerDiv.className = 'warning';
-                    correctAnswerDiv.innerHTML = `<p style="color: red;" Wrong Answer </br> Correct Answer is : ${correctAnswers[question]}`;
-
-                    questionElement.appendChild(correctAnswerDiv);
-                }
-            }
-
-            // Display result
-            resultDiv.innerHTML = `Your score: ${score} out of ${Object.keys(correctAnswers).length}`;
+                // Clear previous feedback
+        const previousFeedback = questionElement.querySelector('.warning');
+        if (previousFeedback) {
+            previousFeedback.remove();
         }
+
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === correctAnswers[question]) {
+                const correctAnswerDiv = document.createElement('div');
+                correctAnswerDiv.className = 'correct-answer';
+                correctAnswerDiv.innerHTML = `Correct Answer: ${correctAnswers[question]}`;
+                questionElement.appendChild(correctAnswerDiv);
+                score++;
+            } else {
+                const warningDiv = document.createElement('div');
+                warningDiv.className = 'warning';
+                warningDiv.innerHTML = `<p style="color: red;">Wrong Answer </br> Correct Answer is: ${correctAnswers[question]}</p>`;
+
+                // Remove any previous feedback
+                // const previousFeedback = questionElement.querySelector('.warning');
+                // if (previousFeedback) {
+                //     previousFeedback.remove();
+                // }
+
+                questionElement.appendChild(warningDiv);
+            }
+        } else {
+            // If the question is unanswered, remove any previous feedback
+            const previousFeedback = questionElement.querySelector('.warning');
+            if (previousFeedback) {
+                previousFeedback.remove();
+            }
+        }
+    }
+
+    // Display result
+    resultDiv.innerHTML = `Your score: ${score} out of ${Object.keys(correctAnswers).length}`;
+}
 
     </script>
 
