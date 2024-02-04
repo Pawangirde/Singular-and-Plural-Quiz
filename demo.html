@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Singular and Plural Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .quiz-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .question {
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .correct-answer {
+            color: #008000;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>Singular and Plural Quiz</h1>
+
+        <form id="quizForm">
+            <div class="question" id="q1">
+                <p>1. Either Rita or Rama _______ playing cricket.</p>
+                <label><input type="radio" name="q1" value="is"> is</label>
+                <label><input type="radio" name="q1" value="are"> are</label>
+            </div>
+            <div class="question" id="q2">
+                <p>2. Neither my sister nor my brothers _______ coming to the party.</p>
+                <label><input type="radio" name="q2" value="had"> had</label>
+                <label><input type="radio" name="q2" value="has"> has</label>
+            </div>
+            <div class="question" id="q3">
+                <p>3. She ______ her homework every day.</p>
+                <label><input type="radio" name="q3" value="do"> do</label>
+                <label><input type="radio" name="q3" value="does"> does</label>
+            </div>
+            <div class="question" id="q4">
+                <p>4. They _____ a picnic in the park.</p>
+                <label><input type="radio" name="q4" value="have"> have</label>
+                <label><input type="radio" name="q4" value="has"> has</label>
+            </div>
+            <div class="question" id="q5">
+                <p>5. Identify the correct sentence:</p>
+                <label><input type="radio" name="q5" value="a) The cat do not like water."> a) The cat do not like
+                    water.</label>
+                <label><input type="radio" name="q5" value="b) The cats does not like water."> b) The cats does not like
+                    water.</label>
+                <label><input type="radio" name="q5" value="c) The cat does not like water."> c) The cat does not like
+                    water.</label>
+                <label><input type="radio" name="q5" value="d) The cats do not like waters."> d) The cats do not like
+                    waters.</label>
+            </div>
+
+            <button type="button" onclick="submitQuiz()">Submit</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+ function submitQuiz() {
+    const form = document.getElementById('quizForm');
+    const resultDiv = document.getElementById('result');
+
+    // Define correct answers
+    const correctAnswers = {
+        q1: 'is',
+        q2: 'has',
+        q3: 'does',
+        q4: 'have',
+        q5: 'c) The cat does not like water.'
+    };
+
+    // Count correct answers
+    let score = 0;
+
+    // Check each question
+    for (const question in correctAnswers) {
+        const selectedAnswer = form.querySelector(`input[name="${question}"]:checked`);
+        const questionElement = document.getElementById(question);
+
+                // Clear previous feedback
+        const previousFeedback = questionElement.querySelector('.warning');
+        if (previousFeedback) {
+            previousFeedback.remove();
+        }
+
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === correctAnswers[question]) {
+                const correctAnswerDiv = document.createElement('div');
+                correctAnswerDiv.className = 'correct-answer';
+                correctAnswerDiv.innerHTML = `Correct Answer: ${correctAnswers[question]}`;
+                questionElement.appendChild(correctAnswerDiv);
+                score++;
+            } else {
+                const warningDiv = document.createElement('div');
+                warningDiv.className = 'warning';
+                warningDiv.innerHTML = `<p style="color: red;">Wrong Answer </br> Correct Answer is: ${correctAnswers[question]}</p>`;
+
+                // Remove any previous feedback
+                // const previousFeedback = questionElement.querySelector('.warning');
+                // if (previousFeedback) {
+                //     previousFeedback.remove();
+                // }
+
+                questionElement.appendChild(warningDiv);
+            }
+        } else {
+            // If the question is unanswered, remove any previous feedback
+            const previousFeedback = questionElement.querySelector('.warning');
+            if (previousFeedback) {
+                previousFeedback.remove();
+            }
+        }
+    }
+
+    // Display result
+    resultDiv.innerHTML = `Your score: ${score} out of ${Object.keys(correctAnswers).length}`;
+}
+
+    </script>
+
+</body>
+
+</html>
